@@ -5,12 +5,14 @@ import com.example.demogradle.entity.RuralEconomyIndex;
 import com.example.demogradle.mapper.RuralEconomyIndexMapper;
 import com.example.demogradle.service.IRuralEconomyIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexMapper, RuralEconomyIndex> implements IRuralEconomyIndexService {
@@ -18,8 +20,12 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
     @Autowired
     private RuralEconomyIndexMapper ruraleconomyindexMapper;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
     @Override
     public RuralEconomyIndex getOne(int id){
+        redisTemplate.opsForValue().set("test","redis缓存mpl",24, TimeUnit.HOURS);
         RuralEconomyIndex one = ruraleconomyindexMapper.getOne(id);
         return one;
     }

@@ -29,8 +29,8 @@ dependencies {
 	implementation group: 'com.baomidou', name: 'mybatis-plus-core', version: '3.5.3.1'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation group: 'com.baomidou', name: 'mybatis-plus-extension', version: '3.5.3.1'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-//	implementation 'org.springframework.session:spring-session-data-redis:2.7.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis:2.7.0'
 }
 
 tasks.named('test') {
