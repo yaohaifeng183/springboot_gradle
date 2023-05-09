@@ -31,6 +31,7 @@ dependencies {
 	implementation group: 'com.baomidou', name: 'mybatis-plus-extension', version: '3.5.3.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis:2.7.0'
+	implementation group: 'com.alibaba', name: 'fastjson', version: '2.0.31'
 }
 
 tasks.named('test') {

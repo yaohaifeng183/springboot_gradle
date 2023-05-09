@@ -1,8 +1,11 @@
 package com.example.demogradle.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demogradle.entity.RuralEconomyIndex;
 import com.example.demogradle.mapper.RuralEconomyIndexMapper;
+import com.example.demogradle.utils.RedisService;
 import com.example.demogradle.service.IRuralEconomyIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -23,9 +26,11 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     public RuralEconomyIndex getOne(int id){
-        redisTemplate.opsForValue().set("test","redis缓存mpl",24, TimeUnit.HOURS);
         RuralEconomyIndex one = ruraleconomyindexMapper.getOne(id);
         return one;
     }
@@ -40,7 +45,16 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
     @Override
     public Set<String> getFiledValue(String indexName) {
         Set<String> set = new HashSet<>();
-        set = ruraleconomyindexMapper.getIndexNdValue(indexName);
+        String redisResult = redisTemplate.opsForValue().get(indexName);
+        if (StringUtils.isBlank(redisResult)){
+            set = ruraleconomyindexMapper.getIndexNdValue(indexName);
+            redisService.add(indexName,set,24, TimeUnit.HOURS);
+        } else {
+//            调用RedisService工具类来查询redis
+//            List<String> list = redisService.getList(indexName, String.class);
+            List<String> list = JSONArray.parseArray(redisResult, String.class);
+            set = new HashSet<>(list);
+        }
         return set;
     }
 }
