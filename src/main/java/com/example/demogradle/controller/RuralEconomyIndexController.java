@@ -46,5 +46,11 @@ public class RuralEconomyIndexController {
         return ruraleconomyindexService.getFiledValue(indexSt);
     }
 
+    @GetMapping("/mongdb/add")
+    @ApiOperation(value = "插入MongoDB数据", httpMethod = "GET")
+    public Boolean mongodbAddDatas() {
+        return ruraleconomyindexService.addMongodb();
+    }
+
 
 }

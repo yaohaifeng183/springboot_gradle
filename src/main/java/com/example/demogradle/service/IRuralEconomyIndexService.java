@@ -14,4 +14,6 @@ public interface IRuralEconomyIndexService extends IService<RuralEconomyIndex> {
 
     Set<String> getFiledValue(String indexName);
 
+    Boolean addMongodb();
+
 }

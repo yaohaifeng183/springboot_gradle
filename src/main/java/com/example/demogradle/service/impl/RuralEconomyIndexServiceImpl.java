@@ -8,13 +8,11 @@ import com.example.demogradle.mapper.RuralEconomyIndexMapper;
 import com.example.demogradle.utils.RedisService;
 import com.example.demogradle.service.IRuralEconomyIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -28,6 +26,9 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
 
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public RuralEconomyIndex getOne(int id){
@@ -56,5 +57,23 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
             set = new HashSet<>(list);
         }
         return set;
+    }
+
+    @Override
+    public Boolean addMongodb() {
+        RuralEconomyIndex ruralEconomyIndex = new RuralEconomyIndex();
+        ruralEconomyIndex.setId(1);
+        ruralEconomyIndex.setIndexSt("农业农村发展");
+        ruralEconomyIndex.setIndexNd("农村居民人均可支配收入变化");
+        ruralEconomyIndex.setIndexName("农村居民人均可支配收入累计值");
+        ruralEconomyIndex.setYear("2021");
+        ruralEconomyIndex.setQuarter("1");
+        ruralEconomyIndex.setDataValue("5398.0");
+        ruralEconomyIndex.setDataUnit("元");
+        ruralEconomyIndex.setFrequent("季度");
+        List<RuralEconomyIndex> users = Arrays.asList(ruralEconomyIndex);
+        mongoTemplate.insert(users, RuralEconomyIndex.class);
+
+        return null;
     }
 }

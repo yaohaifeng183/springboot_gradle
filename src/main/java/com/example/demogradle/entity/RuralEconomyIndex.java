@@ -12,18 +12,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author yinfeng
  * @description 菜单表
- * @TableName menus
- * @since 2022年3月12日 下午9:40:48
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("指标表")
+@Document("ruraleconomyindex")
 @TableName("RuralEconomyIndex")
 public class RuralEconomyIndex {
 
