@@ -6,8 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demogradle.entity.RuralEconomyIndex;
 import com.example.demogradle.mapper.RuralEconomyIndexMapper;
 import com.example.demogradle.utils.RedisService;
-import com.example.demogradle.service.IRuralEconomyIndexService;
+import com.example.demogradle.service.RuralEconomyIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexMapper, RuralEconomyIndex> implements IRuralEconomyIndexService {
+public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexMapper, RuralEconomyIndex> implements RuralEconomyIndexService {
 
     @Autowired
     private RuralEconomyIndexMapper ruraleconomyindexMapper;
@@ -29,6 +30,9 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     @Override
     public RuralEconomyIndex getOne(int id){
@@ -43,6 +47,11 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
         return list;
     }
 
+    /**
+     *
+     * @param indexName
+     * @return
+     */
     @Override
     public Set<String> getFiledValue(String indexName) {
         Set<String> set = new HashSet<>();
@@ -74,6 +83,11 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
         List<RuralEconomyIndex> users = Arrays.asList(ruralEconomyIndex);
         mongoTemplate.insert(users, RuralEconomyIndex.class);
 
+        return null;
+    }
+
+    @Override
+    public List<String> getEs() {
         return null;
     }
 }

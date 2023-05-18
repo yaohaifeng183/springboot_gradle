@@ -14,7 +14,7 @@ repositories {
 	mavenCentral()
 }
 
-
+//导入依赖包
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -33,12 +33,16 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis:2.7.0'
 	implementation group: 'com.alibaba', name: 'fastjson', version: '2.0.31'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+//	implementation 'net.cnki.kbase:kbase-java:2.0.20'
+//    implementation 'net.cnki.kbase:kbase-jna:2.0.20'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
+//编译mapper/xml下面的xml文件
 task mapperXmlCopy(type: Copy) {
 	copy {
 		from("src/main/java") {

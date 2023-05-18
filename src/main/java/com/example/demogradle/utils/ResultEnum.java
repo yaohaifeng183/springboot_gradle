@@ -11,6 +11,7 @@ public enum ResultEnum {
      */
     ERROR(0, "error"),
     SUCCESS(200, "success"),
+    BAD_REQUEST(400, "参数错误"),
     UNAUTHORIZED(401, "未授权"),
     AUTHERROR(403, "授权验证失败"),
 

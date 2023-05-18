@@ -2,7 +2,7 @@ package com.example.demogradle.controller;
 
 
 import com.example.demogradle.entity.RuralEconomyIndex;
-import com.example.demogradle.service.IRuralEconomyIndexService;
+import com.example.demogradle.service.RuralEconomyIndexService;
 import com.example.demogradle.utils.Result;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+/**
+ * @author yhf 学科情报
+ * @date 2023/04/02 16:03
+ **/
 @RestController
 @RequestMapping("/ruralEconomyIndex")
 public class RuralEconomyIndexController {
 
     @Autowired
-    private IRuralEconomyIndexService ruraleconomyindexService;
+    private RuralEconomyIndexService ruraleconomyindexService;
 
     @GetMapping("/getOne")
     @ApiOperation(value = "单个查询", httpMethod = "GET")
@@ -44,28 +48,38 @@ public class RuralEconomyIndexController {
         return Result.success(set);
     }
 
-    @GetMapping("/mongdb/add")
-    @ApiOperation(value = "插入MongoDB数据", httpMethod = "GET")
-    public Boolean mongodbAddDatas() {
-        return ruraleconomyindexService.addMongodb();
+    @PostMapping("/mongdb/add")
+    @ApiOperation(value = "插入MongoDB数据", httpMethod = "POST")
+    public Result mongodbAddDatas(@RequestBody RuralEconomyIndex ruralEconomyIndex) {
+        return Result.success(ruraleconomyindexService.addMongodb());
     }
 
     @PostMapping(value = "/post/indexname")
     @ResponseBody
     @ApiOperation(value = "post请求indexname列表", httpMethod = "POST")
     public Result postindexname(@RequestBody Map<String, Object> param) {
+        Result R = new Result();
         if (param == null || param.size() <= 0) {
             return Result.error("参数错误");
         }
-        String indexSt = param.getOrDefault("indexSt", "").toString();
-        Map<String, String> paramsNotes = new HashMap<>();
-        paramsNotes.put("indexSt", indexSt);
-        Set<String> set = ruraleconomyindexService.getFiledValue(paramsNotes.get("indexSt"));
-        return Result.success(set);
+        try {
+            String indexSt = param.getOrDefault("indexSt", "").toString();
+            Map<String, String> paramsNotes = new HashMap<>();
+            paramsNotes.put("indexSt", indexSt);
+            Set<String> set = ruraleconomyindexService.getFiledValue(paramsNotes.get("indexSt"));
+            return Result.success(set);
+        } catch (Exception e) {
+            R.setCode(500);
+            R.setMsg(e.toString());
+            return R;
+        }
     }
 
-
-    //插入数据
+    /**
+     * @exception 插入数据
+     * @param ruralEconomyIndex
+     * @return
+     */
     @PostMapping("/insert")
     @ApiOperation(value = "插入数据", httpMethod = "POST")
     public Result insert(@RequestBody RuralEconomyIndex ruralEconomyIndex){

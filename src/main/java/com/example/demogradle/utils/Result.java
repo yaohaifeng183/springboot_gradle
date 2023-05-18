@@ -54,7 +54,7 @@ public class Result<T> {
         this.data = data;
     }
 
-    private Result() {
+    public Result() {
         this.code = 200;
         this.msg = "success";
     }
@@ -76,4 +76,15 @@ public class Result<T> {
         return data;
     }
 
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

@@ -6,7 +6,7 @@ import com.example.demogradle.entity.RuralEconomyIndex;
 import java.util.List;
 import java.util.Set;
 
-public interface IRuralEconomyIndexService extends IService<RuralEconomyIndex> {
+public interface RuralEconomyIndexService extends IService<RuralEconomyIndex> {
 
     RuralEconomyIndex getOne(int id);
 
@@ -15,5 +15,7 @@ public interface IRuralEconomyIndexService extends IService<RuralEconomyIndex> {
     Set<String> getFiledValue(String indexName);
 
     Boolean addMongodb();
+
+    List<String> getEs();
 
 }
