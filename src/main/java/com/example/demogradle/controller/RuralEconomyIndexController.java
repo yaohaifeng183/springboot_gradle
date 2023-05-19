@@ -4,9 +4,12 @@ package com.example.demogradle.controller;
 import com.example.demogradle.entity.RuralEconomyIndex;
 import com.example.demogradle.service.RuralEconomyIndexService;
 import com.example.demogradle.utils.Result;
+import com.example.demogradle.utils.ResultEnum;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/ruralEconomyIndex")
 public class RuralEconomyIndexController {
+    private final Logger logger = LoggerFactory.getLogger(RuralEconomyIndexController.class);
 
     @Autowired
     private RuralEconomyIndexService ruraleconomyindexService;
@@ -60,7 +64,8 @@ public class RuralEconomyIndexController {
     public Result postindexname(@RequestBody Map<String, Object> param) {
         Result R = new Result();
         if (param == null || param.size() <= 0) {
-            return Result.error("参数错误");
+            logger.info("警告");
+            return Result.error(ResultEnum.BAD_REQUEST,RuralEconomyIndexController.class);
         }
         try {
             String indexSt = param.getOrDefault("indexSt", "").toString();
