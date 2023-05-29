@@ -69,7 +69,7 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
     }
 
     @Override
-    public Boolean addMongodb() {
+    public boolean addMongodb() {
         RuralEconomyIndex ruralEconomyIndex = new RuralEconomyIndex();
         ruralEconomyIndex.setId(1);
         ruralEconomyIndex.setIndexSt("农业农村发展");
@@ -83,7 +83,7 @@ public class RuralEconomyIndexServiceImpl extends ServiceImpl<RuralEconomyIndexM
         List<RuralEconomyIndex> users = Arrays.asList(ruralEconomyIndex);
         mongoTemplate.insert(users, RuralEconomyIndex.class);
 
-        return null;
+        return true;
     }
 
     @Override

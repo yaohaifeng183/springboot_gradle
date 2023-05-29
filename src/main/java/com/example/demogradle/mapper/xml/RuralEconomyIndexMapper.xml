@@ -6,7 +6,7 @@
         select * from ruraleconomyindex where id = #{id}
     </select>
 
-    <select id="getAll" resultType="java.util.Map">
+    <select id="getAll" resultType="com.example.demogradle.entity.RuralEconomyIndex">
         SELECT * FROM `ruraleconomyindex` LIMIT 20
     </select>
 

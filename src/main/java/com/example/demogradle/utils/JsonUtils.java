@@ -8,7 +8,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ *字符串序列化和反序列化
+ *
+ * @author yaohaifeng
+ * @since 2023/5/29 00:00
+ */
 public class JsonUtils {
     private final static Logger logger = LoggerFactory.getLogger(JsonUtils.class);
     public static ObjectMapper mapper = new ObjectMapper();
@@ -23,8 +28,9 @@ public class JsonUtils {
 
     /**
      * 对象序列化为字符串
-     * @param object
-     * @return
+     *
+     * @param object 被序列化的对象
+     * @return 字符串
      */
     public static String writeValueAsString(Object object){
         if(object == null){
@@ -35,12 +41,12 @@ public class JsonUtils {
         } catch (JsonProcessingException e) {
             logger.error(e.getMessage());
             return null;
-//            e.printStackTrace();
         }
     }
 
     /**
      * 对象序列化为字符串
+     *
      * @param object
      * @return
      */
@@ -53,7 +59,6 @@ public class JsonUtils {
         } catch (JsonProcessingException e) {
             logger.error(e.getMessage());
             return null;
-//            e.printStackTrace();
         }
     }
 
@@ -86,7 +91,6 @@ public class JsonUtils {
         } catch (JsonProcessingException e) {
             logger.error(e.getMessage());
             return null;
-//            e.printStackTrace();
         }
     }
 
@@ -96,7 +100,6 @@ public class JsonUtils {
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
             return null;
-//            e.printStackTrace();
         }
     }
 
@@ -106,7 +109,6 @@ public class JsonUtils {
         } catch (JsonProcessingException e) {
             logger.error(e.getMessage());
             return null;
-//            e.printStackTrace();
         }
     }
 }

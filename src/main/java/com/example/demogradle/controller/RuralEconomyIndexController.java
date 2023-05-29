@@ -58,14 +58,19 @@ public class RuralEconomyIndexController {
         return Result.success(ruraleconomyindexService.addMongodb());
     }
 
+    /**
+     * 请求indexname列表
+     * @param param
+     * @return
+     */
     @PostMapping(value = "/post/indexname")
     @ResponseBody
     @ApiOperation(value = "post请求indexname列表", httpMethod = "POST")
     public Result postindexname(@RequestBody Map<String, Object> param) {
         Result R = new Result();
         if (param == null || param.size() <= 0) {
-            logger.info("警告");
-            return Result.error(ResultEnum.BAD_REQUEST,RuralEconomyIndexController.class);
+            logger.error("警告");
+            return Result.error(ResultEnum.BAD_REQUEST);
         }
         try {
             String indexSt = param.getOrDefault("indexSt", "").toString();
